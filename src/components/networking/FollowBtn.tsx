@@ -10,7 +10,7 @@ const FollowBtn = ({ userId }: any) => {
     const [isFollowed, setIsFollowed] = useState(false);
     const { currentUser } = User();
 
-    const { data, loading } = useSingleFetch(
+    const { data } = useSingleFetch(
         "users",
         currentUser?.uid,
         "following"

@@ -5,7 +5,7 @@ import FollowBtn from './FollowBtn';
 import { useNavigate } from 'react-router-dom';
 
 const Follow = () => {
-    const { data, loading } = useFetch("users");
+    const { data } = useFetch("users");
     const [count, setCount] = useState(5);
     const { currentUser } = User();
     const users =
@@ -23,7 +23,7 @@ const Follow = () => {
                         key={i}
                         className='flex items-start gap-2 my-4' >
                         <div
-                            onClick={() => navigate("/profile" + "/" + userId)}
+                            onClick={() => navigate(`/profile/${userId}`)}
                             className='flex-1 flex items-center gap-2 cursor-pointer'>
                             <img
                                 className='w-[3rem] h-[3rem] object-cover cursor-pointer rounded-full'
