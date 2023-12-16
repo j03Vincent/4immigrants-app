@@ -152,7 +152,7 @@ const EditProfile = ({ editModal, setEditModal, getUserData }: any) => {
                     </p>
 
                     <section className='pt-[1rem] text-sm'>
-                        <label className='pb-3 block' htmlFor="">Presentate*</label>
+                        <label className='pb-3 block' htmlFor="">Preséntate*</label>
                         <input
                             onChange={(e: any) => setForm({ ...form, bio: e.target.value })}
                             value={form.bio}

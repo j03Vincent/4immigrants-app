@@ -18,6 +18,7 @@ const JobsCard = ({ offer }: any) => {
         userId,
         offerViews,
         id: offerId,
+        offerStatus,
 
     } = offer;
 
@@ -47,9 +48,21 @@ const JobsCard = ({ offer }: any) => {
                     <p className='pb-2 font-semibold capitalize'>
                         {getUserData?.fullname}
                     </p>
-                    <h2 className='text-xl font-bold line-clamp-2 leading-6'>
-                        {jtitle}
-                    </h2>
+                    <span className='flex items-start'>
+                        <h2 className='text-xl font-bold line-clamp-2 leading-6'>
+                            {jtitle}
+                        </h2>
+                        {offerStatus ? (
+                            <div className="bg-white border border-green-500 rounded shadow-md ml-1">
+                                <p className="text-green-500 text-center font-semibold px-1 text-xs">Activa</p>
+                            </div>
+                        ) : (
+                            <div className="bg-white border border-red-500 rounded shadow-md ml-1">
+                                <p className="text-red-500 text-center font-semibold px-1 text-xs">Finalizada</p>
+                            </div>
+                        )}
+
+                    </span>
                     <h4 className='line-clamp-2 leading-6'>
                         {jtype}
                     </h4>

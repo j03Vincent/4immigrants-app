@@ -21,9 +21,9 @@ const UserModal = ({ setModal }: any) => {
 
         },
         {
-            title: "Actos sociales",
+            title: "Ofertas",
             icon: <MdOutlineLocalLibrary />,
-            path: "/events",
+            path: "/user",
 
         },
         {

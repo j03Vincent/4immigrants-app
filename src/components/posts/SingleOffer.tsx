@@ -26,6 +26,7 @@ const SingleOffer = () => {
     const { currentUser, showModal, setShowModal } = User();
     const navigate = useNavigate();
 
+    const [condition, setCondition] = useState(true);
 
 
     useEffect(() => {
@@ -74,8 +75,19 @@ const SingleOffer = () => {
             offerViews,
             created,
             postImg,
+            offerStatus,
 
         } = offer;
+
+    // No mostrar la opción de inscribirse cuando el usuario es el autor o el estado de la oferta es finalizado
+    useEffect(() => {
+        if (currentUser?.uid === userId || offerStatus === false) {
+            setCondition(false);
+            return;
+        }
+
+    }, [currentUser?.uid, offerStatus, userId])
+
 
     return (
         <>
@@ -84,8 +96,19 @@ const SingleOffer = () => {
             ) : (
                 <>
                     <section className='w-[90%] md:w-[80%] lg:w-[60%] mx-auto py-[3rem]'>
-                        <h2 className='text-4xl font-extrabold capitalize'>{jtitle}</h2>
+                        <span className='flex items-start'>
+                            <h2 className='text-4xl font-extrabold capitalize'>{jtitle}</h2>
+                            {offerStatus ? (
+                                <div className="bg-white border border-green-500 rounded shadow-md ml-1">
+                                    <p className="text-green-500 text-center font-semibold px-1 text-xs">Activa</p>
+                                </div>
+                            ) : (
+                                <div className="bg-white border border-red-500 rounded shadow-md ml-1">
+                                    <p className="text-red-500 text-center font-semibold px-1 text-xs">Finalizada</p>
+                                </div>
+                            )}
 
+                        </span>
                         <div className='flex items-center gap-2 py-[2rem]'>
                             <img
                                 onClick={() => navigate(`/profile/${userId}`)}
@@ -147,7 +170,7 @@ const SingleOffer = () => {
                                         </div>
                                         <div className='flex justify-between items-center mt-2'>
                                             <p className='text-indigo-400 font-bold flex justify-start items-center'>
-                                                <MdOutlineWorkOutline className='mr-2' /> Tipo de acuerdo:
+                                                <MdOutlineWorkOutline className='mr-2' /> Dedicación:
                                             </p>
                                             <p>{jtype}</p>
                                         </div>
@@ -174,7 +197,7 @@ const SingleOffer = () => {
                                         </div>
                                     </div>
 
-                                    {currentUser?.uid !== userId && (
+                                    {condition && (
                                         <button
                                             onClick={() => setShowModal(true)}
                                             className='btn !bg-green-800 !w-full !text-white !rounded'>

@@ -42,10 +42,12 @@ const SignUp = ({ setSignReq, setModal }: any) => {
                     bio: "",
                     created: Date.now(),
                 })
-                navigate("/");
+
+                navigate(`/profile/${user.uid}`);
                 toast.success("El usuario se ha registrado correctamente");
                 setModal(false);
                 setLoading(false);
+                toast.success("No te olvides de actualizar tus datos");
             }
 
         } catch (error: any) {

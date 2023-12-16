@@ -90,6 +90,7 @@ const Preview = ({ formData, setFormData, setPublish }: any) => {
                 postImg: imageUrl,
                 created: Date.now(),
                 offerViews: 0,
+                offerStatus: true,
 
             });
             toast.success("La oferta ha sido publicada");
@@ -166,7 +167,7 @@ const Preview = ({ formData, setFormData, setPublish }: any) => {
                                     <tr className='bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0'>
                                         <td className='w-full lg:w-auto p-3 text-gray-800 text-center bg-yellow-400 border border-b block lg:table-cell relative lg:static'>
                                             <span className='lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase'>Formulario</span>
-                                            Titulo
+                                            Título
                                         </td>
                                         <td className='w-full lg:w-auto text-gray-800 border border-b block lg:table-cell relative lg:static'>
                                             <span className='lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase'>Entrada</span>
@@ -182,7 +183,7 @@ const Preview = ({ formData, setFormData, setPublish }: any) => {
                                     <tr className='bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0'>
                                         <td className='w-full lg:w-auto p-3 text-gray-800 text-center bg-yellow-400 border border-b block lg:table-cell relative lg:static'>
                                             <span className='lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase'>Formulario</span>
-                                            Tipo
+                                            Dedicación
                                         </td>
                                         <td className='w-full lg:w-auto text-gray-800 text-center border border-b block lg:table-cell relative lg:static'>
                                             <span className='lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase'>Entrada</span>
@@ -214,7 +215,7 @@ const Preview = ({ formData, setFormData, setPublish }: any) => {
                                     <tr className='bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0'>
                                         <td className='w-full lg:w-auto p-3 text-gray-800 text-center bg-yellow-400 border border-b block lg:table-cell relative lg:static'>
                                             <span className='lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase'>Formulario</span>
-                                            Ubicacion
+                                            Ubicación
                                         </td>
                                         <td className='w-full lg:w-auto text-gray-800 border border-b block lg:table-cell relative lg:static'>
                                             <span className='lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase'>Entrada</span>
@@ -262,7 +263,7 @@ const Preview = ({ formData, setFormData, setPublish }: any) => {
                                     <tr className='bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0'>
                                         <td className='w-full lg:w-auto p-3 text-gray-800 text-center bg-yellow-400 border border-b block lg:table-cell relative lg:static'>
                                             <span className='lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase'>Formulario</span>
-                                            Descripcion
+                                            Descripción
                                         </td>
                                         <td className='w-full lg:w-auto text-gray-800 border border-b block lg:table-cell relative lg:static'>
                                             <span className='lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase'>Entrada</span>

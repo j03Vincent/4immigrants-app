@@ -33,7 +33,7 @@ const Post = () => {
                             <label
                                 htmlFor="jobtitle"
                                 className='block text-sm font-semibold text-gray-600 uppercase'>
-                                Titulo
+                                Título
                             </label>
                             <input
                                 onChange={(e) => setFormData({ ...formData, jobtitle: e.target.value })}
@@ -48,7 +48,7 @@ const Post = () => {
 
                         <span className='w-full md:w-1/2'>
                             <label htmlFor="jobtype" className='block text-sm font-semibold text-gray-600 uppercase'>
-                                Tipo
+                                Dedicación
                             </label>
                             <Select
                                 onChange={(e: any) => setFormData({ ...formData, jobtype: e.label })}

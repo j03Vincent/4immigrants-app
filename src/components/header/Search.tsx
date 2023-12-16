@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Modal from '../../utils/Modal'
 import { CiSearch } from 'react-icons/ci';
 import useFetch from '../hooks/useFetch';
@@ -10,6 +10,18 @@ const Search = ({ modal, setModal }: any) => {
 
     const searchData = data && data?.filter((offer: any) => offer.jtitle.toLowerCase().includes(search.toLowerCase()));
     const navigate = useNavigate();
+
+    const searchRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const clickOutside = (e: any) => {
+            if (searchRef.current && searchRef.current.contains(e.target)) {
+                setSearch("");
+            }
+        };
+        window.addEventListener("mousedown", clickOutside);
+        return () => window.removeEventListener("mousedown", clickOutside);
+    }, [setSearch])
 
     return (
         <Modal modal={modal} setModal={setModal}>
