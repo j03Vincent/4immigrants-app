@@ -15,12 +15,12 @@ const Search = ({ modal, setModal }: any) => {
 
     useEffect(() => {
         const clickOutside = (e: any) => {
-            if (searchRef.current && searchRef.current.contains(e.target)) {
+            if (searchRef.current && !searchRef.current.contains(e.target)) {
                 setSearch("");
             }
         };
-        window.addEventListener("mousedown", clickOutside);
-        return () => window.removeEventListener("mousedown", clickOutside);
+        window.addEventListener("click", clickOutside);
+        return () => window.removeEventListener("click", clickOutside);
     }, [setSearch])
 
     return (
@@ -46,6 +46,7 @@ const Search = ({ modal, setModal }: any) => {
                                 <>
                                     {searchData.map((offer: any, i: any) => (
                                         <div
+                                            key={i}
                                             onClick={() => {
                                                 navigate(`/offer/${offer?.id}`);
                                                 setSearch("");

@@ -9,11 +9,13 @@ import UserModal from './UserModal';
 import Search from './Search';
 import { User } from '../../context/Context';
 import Loading from '../Loading';
+import Notification from './Notification';
 
 const HeaderLogged = () => {
     const { allUsers, userLoading, currentUser, setPublish } = User();
     const [modal, setModal] = useState(false);
     const [searchModal, setSearchModal] = useState(false);
+    const [notifModal, setNotifModal] = useState(false);
 
     const { pathname } = useLocation();
 
@@ -63,9 +65,21 @@ const HeaderLogged = () => {
                         </Link>
                     )}
 
-                    <span className='text-3xl text-gray-500 cursor-pointer'>
-                        <IoMdNotificationsOutline />
-                    </span>
+                    <div className='flex items-center relative'>
+                        <span
+                            onClick={() => setNotifModal(true)}
+                            className='text-3xl text-gray-500 cursor-pointer'>
+                            <IoMdNotificationsOutline />
+                        </span>
+                        {/* <Notification modal={notifModal} setModal={setNotifModal} /> */}
+                        <Modal modal={notifModal} setModal={setNotifModal}>
+                            <div className={`${notifModal ? "visible opacity-100" : "invisible opacity-0"} 
+                            transition-all duration-100`}>
+                                <Notification setModal={setNotifModal} />
+                            </div>
+                        </Modal>
+                    </div>
+
 
                     <div className='flex items-center relative'>
                         <img

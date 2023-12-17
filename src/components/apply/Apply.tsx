@@ -95,26 +95,30 @@ const Apply = ({ offerId, userId, showModal, setShowModal }: any) => {
                         <textarea
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
-                            placeholder='Mensaje de solicitud'
+                            placeholder={currentUser?.uid !== userId ? 'Mensaje de solicitud' : 'Responder mensaje'}
                             className='w-full outline-none resize-none text-sm border px-2 pt-4'
                         ></textarea>
 
-                        <p className='mt-1 text-xs text-center'>
-                            El empleador puede consultar tu perfil y,
-                            opcionalmente, puedes adjuntar tu CV.
-                        </p>
-                        <div className='flex justify-center'>
-                            <button
-                                onClick={handleClick}
-                                className="mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none text-xs">
-                                Subir un archivo
-                            </button>
-                            {pdfFile && <FaCheck className='text-green-600 mt-3' />}
-                            <input
-                                onChange={(e: any) => setPdfFile(e.target.files[0])}
-                                type="file" accept=".pdf" hidden ref={fileRef}
-                            />
-                        </div>
+                        {currentUser?.uid !== userId && (
+                            <>
+                                <p className='mt-1 text-xs text-center'>
+                                    El empleador puede consultar tu perfil y,
+                                    opcionalmente, puedes adjuntar tu CV.
+                                </p>
+                                <div className='flex justify-center'>
+                                    <button
+                                        onClick={handleClick}
+                                        className="mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none text-xs">
+                                        Subir un archivo
+                                    </button>
+                                    {pdfFile && <FaCheck className='text-green-600 mt-3' />}
+                                    <input
+                                        onChange={(e: any) => setPdfFile(e.target.files[0])}
+                                        type="file" accept=".pdf" hidden ref={fileRef}
+                                    />
+                                </div>
+                            </>
+                        )}
 
                         <div className='flex items-center justify-end gap-4 mt-[1rem]'>
                             <button
