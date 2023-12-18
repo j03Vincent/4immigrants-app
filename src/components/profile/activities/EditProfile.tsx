@@ -5,17 +5,29 @@ import { toast } from 'react-toastify';
 import { db, storage } from '../../../firebase/firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { doc, updateDoc } from 'firebase/firestore';
+import Select from 'react-select'
+
+
 
 const EditProfile = ({ editModal, setEditModal, getUserData }: any) => {
     const imgRef = useRef<any>(null);
     const [loading, setLoading] = useState(false);
     const [imageFile, setImageFile] = useState<File>();
     const [imgUrl, setImageUrl] = useState("");
-    const [form, setForm] = useState({
+
+    interface FormState {
+        userImg: string;
+        fullname: string;
+        bio: string;
+        field: { value: string; label: string } | null;
+        skills: { value: string; label: string }[] | null;
+    }
+    const [form, setForm] = useState<FormState>({
         userImg: "",
         fullname: "",
         bio: "",
-        skills: "",
+        field: null,
+        skills: null,
     });
 
     const btnStyle = 'border border-green-600 py-2 px-5 rounded-full text-green-600';
@@ -33,14 +45,15 @@ const EditProfile = ({ editModal, setEditModal, getUserData }: any) => {
                 userImg: "",
                 fullname: "",
                 bio: "",
-                skills: "",
+                field: null,
+                skills: null,
             })
         }
     }, [getUserData]);
 
     // actualizar el formulario en la bd
     const saveForm = async () => {
-        if (form["fullname"] === "" || form["bio"] === "" || form["skills"] === "") {
+        if (form["fullname"] === "" || form["bio"] === "" || form["field"] === null) {
             toast.error("Todos los campos son obligatorios");
             return;
         }
@@ -59,6 +72,7 @@ const EditProfile = ({ editModal, setEditModal, getUserData }: any) => {
                     userImg: imageUrl,
                     fullname: form.fullname,
                     bio: form.bio,
+                    field: form.field,
                     skills: form.skills,
                 })
                 setLoading(false);
@@ -71,6 +85,7 @@ const EditProfile = ({ editModal, setEditModal, getUserData }: any) => {
                     userImg: form.userImg,
                     fullname: form.fullname,
                     bio: form.bio,
+                    field: form.field,
                     skills: form.skills,
                 })
                 setLoading(false);
@@ -85,6 +100,36 @@ const EditProfile = ({ editModal, setEditModal, getUserData }: any) => {
         }
 
     };
+
+    const optionsField = [
+        { value: 'Sector hostelería y turismo', label: 'Sector hostelería y turismo (restaurantes, hoteles)' },
+        { value: 'Sector doméstico', label: 'Sector doméstico (limpieza, empleado/a de hogar)' },
+        { value: 'Sector transporte y logística', label: 'Sector transporte y logística' },
+        { value: 'Sector comercio', label: 'Sector comercio (ropas, alimentación, estancos)' },
+        { value: 'Sector agricultura y ganadería', label: 'Sector agricultura y ganadería' },
+        { value: 'Sector actividades físico-deportivas', label: 'Sector actividades físico-deportivas' },
+        { value: 'Sector sanidad', label: 'Sector sanidad (farmacias, hospital, veterinarias)' },
+        { value: 'Sector educación', label: 'Sector educación (colegios, academias, educación infantil)' },
+        { value: 'Sector construcción e industrias extractivas', label: 'Sector construcción e industrias extractivas' },
+        { value: 'Sector de economía e industria digital', label: 'Sector de economía e industria digital (informática, teleco)' },
+        { value: 'Sector energía y agua', label: 'Sector energía y agua(fontanero, distribución de energía eléctrica)' },
+        { value: 'Sector otros servicios', label: 'Sector otros servicios (peluquería, jardinería' },
+    ]
+
+    const optionsSkills = [
+        { value: 'Adaptación', label: 'La capacidad de adaptación' },
+        { value: 'Equipo', label: 'Trabajar en equipo' },
+        { value: 'Tranquilo', label: 'Controlar el estrés' },
+        { value: 'Iniciativa', label: 'Tener iniciativa' },
+        { value: 'Responsabilidad', label: 'Saber tomar decisiones' },
+        { value: 'Racional', label: 'Actuar de manera racional' },
+        { value: 'Comunicación', label: 'Capacidad de comunicación (dominio de idiomas)' },
+        { value: 'Confianza', label: 'Confianza' },
+        { value: 'Flexibilidad', label: 'Flexibilidad' },
+        { value: 'Empatía', label: 'Empatía (comprender y respetar)' },
+        { value: 'Optimismo', label: 'Optimismo' },
+        { value: 'Liderazgo', label: 'Liderazgo' },
+    ]
 
     return (
         <Modal modal={editModal} setModal={setEditModal}>
@@ -143,7 +188,7 @@ const EditProfile = ({ editModal, setEditModal, getUserData }: any) => {
                         value={form.fullname}
                         className='p-1 border-b border-black w-full outline-none'
                         type="text"
-                        placeholder='nombre y apellidos'
+                        placeholder='Nombre y apellidos'
                         maxLength={50}
                     />
                     <p className='text-sm text-gray-600 pt-2'>
@@ -158,7 +203,7 @@ const EditProfile = ({ editModal, setEditModal, getUserData }: any) => {
                             value={form.bio}
                             className='p-1 border-b border-black w-full outline-none'
                             type="text"
-                            placeholder='una introducción, algo sobre ti'
+                            placeholder='Una introducción, algo sobre ti'
                             maxLength={200}
                         />
                         <p className='text-sm text-gray-600 pt-2'>
@@ -168,18 +213,38 @@ const EditProfile = ({ editModal, setEditModal, getUserData }: any) => {
                     </section>
 
                     <section className='pt-[1rem] text-sm'>
-                        <label className='pb-3 block' htmlFor="">Habilidades*</label>
-                        <input
-                            onChange={(e: any) => setForm({ ...form, skills: e.target.value })}
-                            value={form.skills}
-                            className='p-1 border-b border-black w-full outline-none'
-                            type="text"
-                            placeholder='p. ej. manejo de idiomas, ganas de aprender, etc'
-                            maxLength={100}
+                        <label className='pb-3 block' htmlFor="">Sector profesional*</label>
+                        <Select
+                            onChange={(e: any) => setForm({ ...form, field: e })}
+                            value={form.field}
+                            className='p-1 w-full outline-none'
+                            placeholder='¿Cuál es tu sector profesional?'
+                            options={optionsField}
+                            isSearchable={true}
+                            isClearable={true}
                         />
                         <p className='text-sm text-gray-600 pt-2'>
-                            Aparece junto a tu introducción, lo pueden leer los demás.&nbsp;
-                            {form.skills?.length}/100
+                            Elige el sector al que perteneces. Facilita la creación de redes.&nbsp;
+                            {/* {form.skills?.length}/100 */}
+                        </p>
+                    </section>
+
+                    <section className='pt-[1rem] text-sm'>
+                        <label className='pb-3 block' htmlFor="">Habilidades*</label>
+                        <Select
+                            onChange={(e: any) => setForm({ ...form, skills: e })}
+                            value={form.skills}
+                            className='p-1 w-full outline-none'
+                            placeholder='Selecciona las habilidades en las que destaques'
+                            options={optionsSkills}
+                            isSearchable={true}
+                            isClearable={true}
+                            isMulti
+
+                        />
+                        <p className='text-sm text-gray-600 pt-2'>
+                            Es posible seleccionar varias habilidades. Se mostrarán en "Mis datos".
+                            {/* {form.skills?.length}/100 */}
                         </p>
                     </section>
                 </section>

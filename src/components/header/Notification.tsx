@@ -28,7 +28,7 @@ const Notification = ({ setModal }: any) => {
     // fetchAllSubcollections();
 
     const getUserData = allUsers.find((user: any) => user.id === requests[0]?.userId);
-    console.log(getUserData);
+
     const navigate = useNavigate();
 
     return (

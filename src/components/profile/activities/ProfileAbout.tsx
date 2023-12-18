@@ -7,10 +7,25 @@ const ProfileAbout = ({ getUserData, setEditModal }: any) => {
         <div className='w-full'>
             <p className='text-2xl first-letter:uppercase'>
                 {getUserData?.bio || getUserData?.fullname + " aun no tiene una descripcion personal"} <br /><br />
-                {getUserData?.skills ?
-                    `Estas son mis habilidades destacadas: ${getUserData?.skills}`
-                    :
-                    getUserData?.fullname + " aún no ha escrito sus habilidades"}
+
+                {getUserData?.field && (
+                    <span>
+                        He trabajado anteriormente en el {getUserData.field.value} <br /><br />
+                    </span>
+                )}
+
+                {getUserData?.skills && (
+                    <span>
+                        Estas son mis habilidades destacadas: <br />
+                        {getUserData.skills.map((skill: any) => (
+                            <span key={skill.value}>{skill.label}, </span>
+                        ))}
+                    </span>
+                )}
+
+                {!getUserData?.field && !getUserData?.skills &&
+                    getUserData?.fullname + " aún no ha proporcionado información adicional sobre el sector profesional o habilidades"
+                }
             </p>
             <div className='text-right'>
                 {currentUser?.uid === getUserData.userId && (
