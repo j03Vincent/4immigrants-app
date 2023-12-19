@@ -29,15 +29,15 @@ const ShareJobs = () => {
                 <Button click={copyLink} title="Copiar enlace" icon={<BiLink />} />
 
                 <FacebookShareButton url={path}>
-                    <Button click="" title="Compartir en Facebook" icon={<BiLogoFacebookCircle />} />
+                    <Button title="Compartir en Facebook" icon={<BiLogoFacebookCircle />} />
                 </FacebookShareButton>
 
                 <TwitterShareButton url={path}>
-                    <Button click="" title="Compartir en Twitter" icon={<BiLogoTwitter />} />
+                    <Button title="Compartir en Twitter" icon={<BiLogoTwitter />} />
                 </TwitterShareButton>
 
                 <WhatsappShareButton url={path}>
-                    <Button click="" title="Compartir en Whatsapp" icon={<BiLogoWhatsappSquare />} />
+                    <Button title="Compartir en Whatsapp" icon={<BiLogoWhatsappSquare />} />
                 </WhatsappShareButton>
             </DropDown>
         </div>
@@ -51,7 +51,7 @@ const Button = ({ click, icon, title }: any) => {
         <button
             onClick={click}
             className='p-2 hover:bg-gray-200 hover:text-black/80 w-full text-sm text-left 
-        flex items-center gap-2 cursor-pointer text-gray-500'>
+            flex items-center gap-2 cursor-pointer text-gray-500'>
             <span className='text-[1.2rem]'>{icon}</span>
             {title}
         </button>
