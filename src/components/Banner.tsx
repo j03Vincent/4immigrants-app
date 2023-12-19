@@ -5,7 +5,7 @@ const Banner = () => {
         <div className="bg-banner border-b border-black">
             <div className="size flex font-poppins justify-between wrapper items-center bg-banner py-10 lg:py-0">
                 <div className="px-10 space-y-5">
-                    <h1 className="text-6xl capitalize max-w-xl font-serif">
+                    <h1 className="text-5xl capitalize max-w-xl font-serif lg:text-6xl">
                         Uniendo caminos, construyendo futuros
                     </h1>
                     <h2 className="w-full md:w-[31rem] text-[1.3rem] md:text-[1.5rem] leading-7">
