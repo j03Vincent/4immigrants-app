@@ -22,7 +22,7 @@ const Accordion = ({ question, answer, turn, setTurn, idx, link }: any) => {
                 className={`bg-transparent px-5 shadow cursor-pointer w-full h-full ${turn![idx]}`}>
                 <div className='py-3'>
                     <div className='flex items-center justify-between h-14 text-left'>
-                        <span className='ml-2 font-medium lg:font-semibold lg:text-xl text-sm text-yellow-400'>{question}</span>
+                        <span className='ml-2 font-medium lg:font-semibold lg:text-xl text-sm text-[#ffc300]'>{question}</span>
                         <div>
                             {turn![idx] ?
                                 <AiOutlineMinus className='w-[20px] h-[20px]' />
