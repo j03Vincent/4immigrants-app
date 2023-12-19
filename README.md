@@ -1,3 +1,10 @@
+# TFT: 4immigrants
+La aplicación web dedicada a la gestión de ofertas de empleo para inmigrantes se erige como una solución moderna y eficaz para facilitar la integración laboral. Desarrollada con React TypeScript y Tailwind en el frontend, respaldada por Firebase en el backend, la plataforma ofrece una experiencia segura y amigable. Permite a los usuarios crear perfiles, explorar oportunidades laborales, interactuar socialmente, y acceder a herramientas útiles como consejos profesionales y una calculadora de divisas, brindando así un entorno completo para optimizar la búsqueda y conexión laboral.
+
+Con una interfaz intuitiva, la aplicación fomenta la interacción entre empleadores y candidatos, permitiendo la publicación y búsqueda de ofertas de empleo. Las funcionalidades abarcan desde la inscripción y gestión de solicitudes hasta la interacción social, destacando la versatilidad de la plataforma en apoyo a la comunidad laboral de inmigrantes
+
+Se puede ver el despliegue de la aplicación, haciendo clic en el [siguiente enlace.](https://tft-4immigrants.netlify.app/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
