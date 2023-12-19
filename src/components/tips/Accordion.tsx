@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
-const Accordion = ({ question, answer, turn, setTurn, idx }: any) => {
+const Accordion = ({ question, answer, turn, setTurn, idx, link }: any) => {
     const contentRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -35,6 +35,8 @@ const Accordion = ({ question, answer, turn, setTurn, idx }: any) => {
                     <div ref={contentRef} className='mx-4 overflow-hidden text-left transition-all duration-500 h-full'>
                         <p className='py-1 font-normal leading-normal text-justify whitespace-pre-line text-xs lg:text-lg'>
                             {answer}
+                            <br />
+                            Mas información en: <a href={link} target="_blank" rel="noreferrer" className='underline text-blue-600'>{link}</a>
                         </p>
                     </div>
                 </div>

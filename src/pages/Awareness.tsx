@@ -13,8 +13,9 @@ const Awareness = () => {
 
     return (
         <>
-            <div className='grid place-items-center w-full'>
+            <div className='flex place-items-center w-full md:grid'>
                 <Layout
+                    className='w-full md:w-[31rem] text-[1.3rem] md:text-[1.5rem] leading-7'
                     handleClick={handleClick}
                     isSomeActive={isSomeActive}
                     data={guide}

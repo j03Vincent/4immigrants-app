@@ -56,7 +56,7 @@ const UserModal = ({ setModal }: any) => {
         <section className='absolute w-[18rem] p-6 bg-white right-0 top-[100%] 
         shadows rounded-md z-50 text-gray-500'
         >
-            <Link to={'/post'} className='flex md:hidden items-center gap-1 text-gray-500'>
+            <Link to={'/postJob'} onClick={() => setModal(false)} className='flex md:hidden items-center gap-1 text-gray-500 pb-3'>
                 <span className='text-3xl'>
                     <LiaEditSolid />
                 </span>

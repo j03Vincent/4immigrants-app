@@ -10,8 +10,8 @@ const Layout = ({ handleClick, isSomeActive, data, turn, setTurn }: any) => {
             </span>
             <p className='text-center mt-2'>
                 Intentaremos explicar estos temas de la mejor manera posible. <br />
-                <span className='text-sm italic'>Casi toda la información facilitada aqui está recogida en la Ley Orgánica 4/2000,
-                    de 11 de enero (<a href="https://www.boe.es/eli/es/lo/2000/01/11/4" className='text-blue-600'>BOE-A-2000-544</a>).
+                <span className='text-sm font-medium italic'>Toda la información facilitada aquí tiene una fuente,
+                    por ejemplo los derechos laborales están contemplados en la Ley Orgánica 4/2000.
                 </span>
             </p>
             <div className='flex items-center justify-between w-full mb-6 lg:justify-end'>
@@ -42,6 +42,7 @@ const Layout = ({ handleClick, isSomeActive, data, turn, setTurn }: any) => {
                             turn={turn}
                             setTurn={setTurn}
                             idx={el.idx}
+                            link={el.link}
                         />
                     </div>
                 )
