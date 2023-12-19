@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProfilePost from './activities/ProfilePost';
 import ProfileLists from './activities/ProfileLists';
 import ProfileAbout from './activities/ProfileAbout';
@@ -10,9 +10,10 @@ import EditProfile from './activities/EditProfile';
 import { User } from '../../context/Context';
 import { useParams } from 'react-router-dom';
 import useSingleFetch from '../hooks/useSingleFetch';
+import Contact from './chat/Contact';
 
 const Profile = () => {
-    const { allUsers, currentUser } = User();
+    const { allUsers, currentUser, showModal, setShowModal } = User();
     const { userId } = useParams();
 
     const activities = [
@@ -37,6 +38,21 @@ const Profile = () => {
 
     const { data: following } = useSingleFetch("users", userId, "following");
     const { data: followers } = useSingleFetch("users", userId, "followers");
+
+    const [isFollowed, setIsFollowed] = useState(false);
+    const { data: myMessages } = useSingleFetch("users", userId, "messages");
+
+    const { data } = useSingleFetch(
+        "users",
+        currentUser?.uid,
+        "following"
+    );
+
+    useEffect(() => {
+        setIsFollowed(
+            data && data?.findIndex((item: any) => item.id === userId) !== -1);
+
+    }, [data, userId])
 
     return (
         <section className='size flex gap-[4rem] relative'>
@@ -94,6 +110,12 @@ const Profile = () => {
                             alt="profile-img"
                             referrerPolicy="no-referrer"
                         />
+                        {isFollowed || myMessages.length > 0 ? <button
+                            onClick={() => setShowModal(true)}
+                            className='absolute btn !text-xs !bg-green-700 !text-white !rounded-full right-0'>
+                            {myMessages.length > 0 ? `Mensajes(${myMessages.length})` : "Contactar"}
+                        </button>
+                            : <></>}
                         <h2 className='py-2 font-bold capitalize'>{getUserData?.fullname}</h2>
                         <p className='text-gray-500 first-letter:uppercase text-sm'>
                             {getUserData?.bio}
@@ -123,6 +145,8 @@ const Profile = () => {
                 editModal={editModal}
                 setEditModal={setEditModal} />
             )}
+
+            {showModal && <Contact userId={userId} showModal={showModal} setShowModal={setShowModal} />}
         </section>
     )
 }
