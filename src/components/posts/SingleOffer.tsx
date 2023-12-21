@@ -1,4 +1,4 @@
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, increment, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { db } from '../../firebase/firebase';
@@ -88,6 +88,37 @@ const SingleOffer = () => {
 
     }, [currentUser?.uid, offerStatus, userId])
 
+
+    // Incrementar el numero de visitas de las ofertas por usuarios unicos
+    useEffect(() => {
+        const incrementViews = async () => {
+            try {
+                const offerDocRef = doc(db, 'offers', offerId);
+
+                // Comprueba si el usuario no ha visualizado la oferta anteriormente
+                const offerSnapshot = await getDoc(offerDocRef);
+
+                if (offerSnapshot.exists()) {
+                    const offerData = offerSnapshot.data();
+                    const userViewedKey = `userViewed.${currentUser?.uid}`;
+
+                    if (!offerData.userViewed || !offerData.userViewed[currentUser?.uid]) {
+                        // actualiza el contador en la colleción
+                        const viewsIncrement = increment(1);
+                        await updateDoc(offerDocRef, {
+                            offerViews: viewsIncrement,
+                            [userViewedKey]: true,
+                        });
+
+                    }
+                }
+            } catch (error: any) {
+                toast.error('Error al incrementar offerViews:', error.message);
+            }
+        };
+
+        incrementViews();
+    }, [currentUser?.uid, offerId]);
 
     return (
         <>
