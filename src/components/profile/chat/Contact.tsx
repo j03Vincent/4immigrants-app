@@ -17,6 +17,10 @@ const Contact = ({ userId, showModal, setShowModal }: any) => {
     const getUserData = allUsers.find((user: any) => user.id === currentUser?.uid);
 
     // const sortedMessages = data.sort((a, b) => b.created - a.created);
+    const filteredMessages = data && data?.filter((item: any) => (
+        (item.from === currentUser?.uid) || (item.to === userId)
+    ));
+
 
     const handleSubmit = async () => {
         try {
@@ -31,6 +35,7 @@ const Contact = ({ userId, showModal, setShowModal }: any) => {
 
                 created: Date.now(),
                 from: currentUser?.uid,
+                to: userId,
             });
 
 
@@ -50,7 +55,7 @@ const Contact = ({ userId, showModal, setShowModal }: any) => {
             overflow-y-auto transition-all duration-500 
             ${showModal ? "translate-x-0" : "translate-x-[23rem]"}`}>
                 <div className='flex items-center justify-between'>
-                    <h3 className='text-xl font-bold'>Mensajes({data.length})</h3>
+                    <h3 className='text-xl font-bold'>Mensajes({filteredMessages.length})</h3>
                     <button
                         onClick={() => setShowModal(false)}
                         className='text-xl'>
@@ -89,11 +94,12 @@ const Contact = ({ userId, showModal, setShowModal }: any) => {
                         </div>
                     </div>
                 )}
-                {data && data?.length === 0 ? (
+                {/* data?.from !== currentUser?.uid &&  */}
+                {filteredMessages?.length === 0 ? (
                     <p>No tienes conversaciones pasadas</p>
                 ) : (
                     <div className="border-t py-4 mt-8 flex flex-col gap-8">
-                        {data && data.sort((a: any, b: any) => b.created - a.created).map((item: any, i: any) =>
+                        {filteredMessages && filteredMessages.sort((a: any, b: any) => b.created - a.created).map((item: any, i: any) =>
                             loading ? (
                                 <Loading />
                             ) : (

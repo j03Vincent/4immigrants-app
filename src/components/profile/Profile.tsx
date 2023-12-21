@@ -110,12 +110,15 @@ const Profile = () => {
                             alt="profile-img"
                             referrerPolicy="no-referrer"
                         />
-                        {isFollowed || myMessages.length > 0 ? <button
-                            onClick={() => setShowModal(true)}
-                            className='absolute btn !text-xs !bg-green-700 !text-white !rounded-full right-0'>
-                            {myMessages.length > 0 ? `Mensajes(${myMessages.length})` : "Contactar"}
-                        </button>
-                            : <></>}
+                        {isFollowed || (myMessages.length > 0 && userId === currentUser?.uid) ?
+                            <button
+                                onClick={() => setShowModal(true)}
+                                className='absolute btn !text-xs !bg-green-700 !text-white !rounded-full right-0'>
+                                {isFollowed ? "Contactar" : `Mensajes(${myMessages.length})`}
+                            </button>
+                            :
+                            <></>
+                        }
                         <h2 className='py-2 font-bold capitalize'>{getUserData?.fullname}</h2>
                         <p className='text-gray-500 first-letter:uppercase text-sm'>
                             {getUserData?.bio}
