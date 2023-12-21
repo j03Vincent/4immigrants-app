@@ -31,6 +31,9 @@ const Notification = ({ setModal }: any) => {
 
     const navigate = useNavigate();
 
+    const { data: chat } = useSingleFetch("users", currentUser?.uid, "messages");
+    const userMessage = chat && chat?.filter((item: any) => item.to === currentUser?.uid);
+
     return (
 
         <div className='absolute w-[18rem] p-6 bg-white right-0 top-[100%]
@@ -51,10 +54,27 @@ const Notification = ({ setModal }: any) => {
 
                     <p><span className='capitalize'>{getUserData?.fullname}</span> {""}
                         se ha suscrito a tu oferta
-                        "<span className='lowercase'>{userOffer[0].jtitle}</span></p>
+                        "<span className='lowercase'>{userOffer[0].jtitle}</span>"</p>
                 </div>
             )}
-            {requests.length === 0 && <p>No tienes ninguna notificación</p>}
+            {userMessage && userMessage.map((item: any, i: any) =>
+                <div
+                    key={i}
+                    className='cursor-pointer flex items-center gap-4 border-b border-gray-300 pb-2 pt-2'
+                    onClick={() => {
+                        navigate(`/profile/${currentUser?.uid}`);
+                        setModal(false);
+                        setShowModal(true);
+                    }}>
+                    <BsExclamationSquare className='text-5xl text-indigo-500' />
+
+                    <p><span className='capitalize'>{allUsers.find((user: any) => user.id === item.from)?.fullname}</span> {""}
+                        te ha enviado un mensaje privado</p>
+                </div>
+            )}
+
+            {(requests.length === 0 && userMessage.length === 0) && <p>No tienes ninguna notificación</p>}
+
 
         </div >
     )
